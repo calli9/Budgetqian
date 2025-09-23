@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Computer" content="ie=edge">
+
+    <link rel="stylesheet" href="../css/style.css">
+    <title> 小钱钱 | 财务追踪管理</title>
+
+</head>
+
+<body>
+    <header class="header">
+        <h1>设置</h1>
+    </header>
+    <main class="main padding-nor">
+        <section class="card margin-big shadow-Littledark padding-nor">
+            <div>
+                <h2>主题</h2>
+                <div class="flex text-Setpart">
+                    <div>
+                        <h3>深色模式</h3>
+                        <p>切换主题颜色</p>
+                    </div>
+                    <div>
+                        <label class="switch">
+                            <input type="checkbox" id="toggle">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="card margin-big shadow-Littledark padding-nor">
+            <div>
+                <h2>账户</h2>
+                <div class="text-Setpart">
+                    <h3>账户信息</h3>
+                    <p>查看和编辑您的资料</p>
+                </div>
+                <form action="../index.html">
+                    <button class="form-section__button font-big font-thick color-red"
+                        style="border: 1px solid var(--color-red);">
+                        <svg class="svg-sm">
+                            <use xlink:href="../icomoon/all.svg#exit"></use>
+                        </svg>
+                        退出登录
+                    </button>
+            </div>
+            </div>
+        </section>
+        <section class="card margin-big shadow-Littledark padding-nor">
+            <div>
+                <h2>关于</h2>
+                <div>
+                    <div class="text-Setpart">
+                        <h3>版本信息</h3>
+                        <p>v.1.0.0</p>
+                    </div>
+                    <div class="text-Setpart">
+                        <h3>帮助与支持</h3>
+                        <p>联系我们获取帮助</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="../js/nav.js"></script>
+    <script>
+        const h2 = document.querySelectorAll("h2")
+        const h3 = document.querySelectorAll("h3")
+
+        h2.forEach(h2 => h2.classList.add("text-h2", "margin-med"))
+        h3.forEach(h3 => h3.classList.add("text-h3"))
+
+    </script>
+</body>
+
+</html>
