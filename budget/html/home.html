@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Computer" content="ie=edge">
+
+    <link rel="stylesheet" href="../css/style.css">
+    <title> 小钱钱 | 财务追踪管理</title>
+
+</head>
+
+<body>
+    <header class="header">
+        <h1>财务概况</h1>
+    </header>
+    <main class="main padding-nor">
+        <section>
+            <div class="flex margin-med">
+                <h2 class="text-h2">账户总览</h2>
+                <button class="text-btn" style="background-color: transparent;">
+                    <svg>
+                        <use xlink:href="../icomoon/all.svg#cycle"></use>
+                    </svg>
+                </button>
+            </div>
+            <div class="font-max font-thick color-blue" id="all">￥<span>4050.00</span></div>
+            <div class="font-sm">总资产</div>
+        </section>
+        <div class="grid-half">
+            <section>
+                <div class="font-plus font-thick color-green" id="in">￥<span>5800.00</span></div>
+                <div>本月收入</div>
+            </section>
+            <section>
+                <div class="font-plus font-thick color-red" id="out">￥<span>1750.00</span></div>
+                <div>本月支出</div>
+            </section>
+        </div>
+        <section>
+            <div class="flex margin-med">
+                <h2 class="text-h2">最近交易</h2>
+                <a href="record.html" class="text-a font-sm">查看全部 ></a>
+            </div>
+            <div id="record">
+            </div>
+        </section>
+    </main>
+    <script src="../js/nav.js"></script>
+    <script>
+        const content = [
+            {
+                xlink: "../icomoon/all.svg#credit-card",
+                h3: "工资",
+                time: "2025-9-14 12:00",
+                p: "工资收入",
+                num: "+5050.00",
+                revenue: 1
+            },
+            {
+                xlink: "../icomoon/all.svg#spoon-knife",
+                h3: "午餐",
+                time: "2025-9-14 12:00",
+                p: "餐饮支出",
+                num: "-350.00",
+                revenue: 0
+            },
+            {
+                xlink: "../icomoon/all.svg#home3",
+                h3: "房子",
+                time: "2025-9-14 08:00",
+                p: "租房",
+                num: "-1200.00",
+                revenue: 0
+            }
+        ]
+
+        const color = ["green", "red", "blue", "purple", "pink", "orange"]
+
+        const svgs = document.querySelectorAll("svg")
+        const sections = document.querySelectorAll("section")
+        const Dsections = document.querySelectorAll("div section")
+
+        svgs.forEach(svg => svg.classList.add("svg-med"))
+        sections.forEach(section => section.classList.add("card", "margin-big", "shadow-Littledark", "padding-nor"))
+        Dsections.forEach(Dsection => Dsection.classList.replace("padding-nor", "padding-sm"))
+
+        const record = document.querySelector("#record")
+        record.innerHTML += content.map((item, i) =>
+            `<div class="flex card padding-updown margin-sm shadow-light ">
+                <div class="flex">
+                    <div class="flex padding-lr">
+                        <svg class="svg-big color-${color[i]}">
+                            <use xlink:href=${item.xlink}></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="flex">
+                            <h3 class="text-h3">${item.h3}</h3>
+                            <span class="font-tiny margin-left">${item.time}</span>
+                        </div>
+                        <p>${item.p}</p>
+                    </div>
+                </div>
+                    ${item.revenue ? `<div class="font-big font-thick color-green">${item.num}</div >` : `<div class="font-big font-thick color-red">${item.num}</div >`}
+            </div >
+        `).join('')
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const contentitem = document.querySelectorAll("#record div")
+            let current = null
+
+            contentitem.forEach(item =>
+                item.addEventListener('click', function () {
+                    if (current && current !== this) {
+                        current.classList.replace('shadow-Littledark', 'shadow-light')
+                    }
+                    this.classList.replace('shadow-light', 'shadow-Littledark')
+                    current = this
+                })
+            )
+        })
+    </script>
+
+    <script>
+            (function () {
+                const msg = sessionStorage.getItem('toast1')
+                if (!msg) return
+                sessionStorage.removeItem('toast1')
+
+                const box = document.createElement('div');
+                box.textContent = msg;
+                box.style.cssText = `
+        position:fixed; bottom:2rem; left:50%; transform:translateX(-50%);
+        background:#f0f0f0; color:#374151; padding:1rem 1.6rem; border-radius:8px;
+        font-size:1.4rem; z-index:9999; transition:opacity .3s;`
+                document.body.appendChild(box);
+
+                setTimeout(() => {
+                    box.style.opacity = '0'
+                    setTimeout(() => box.remove(), 300)
+                }, 2500)
+            })()
+    </script>
+
+    <script>
+        const message = JSON.parse(localStorage.getItem('user-list'))
+        console.log(message)
+
+        let all = parseFloat(document.querySelector('#all span').innerHTML)
+        let income = parseFloat(document.querySelector('#in span').innerHTML)
+        let outcome = parseFloat(document.querySelector('#out span').innerHTML)
+
+        message.map((item, i) => {
+            const v = parseFloat(item.num)
+
+            item.revenue ? (income += v) : (outcome += v)
+        })
+
+        document.querySelector('#all span').innerHTML = (income - outcome).toFixed(2)
+        document.querySelector('#in span').innerHTML = income.toFixed(2)
+        document.querySelector('#out span').innerHTML = outcome.toFixed(2)
+
+    </script>
+</body>
+
+</html>

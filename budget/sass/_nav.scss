@@ -1,0 +1,42 @@
+//////////////
+/// nav 
+nav {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    background-color: var(--color-white);
+
+    div {
+        border-radius: 40px;
+        padding: 1rem 1.8rem;
+
+        a {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            color: var(--color-gray);
+
+            svg {
+                fill: var(--color-gray);
+            }
+
+            &:focus,
+            &:link,
+            &:active {
+                color: var(--color-blue-light);
+
+                svg {
+                    fill: currentColor;
+                }
+            }
+
+            span {
+                display: block;
+            }
+        }
+    }
+}

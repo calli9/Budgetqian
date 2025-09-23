@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Computer" content="ie=edge">
+
+    <link rel="stylesheet" href="css/style.css">
+    <title> 小钱钱 | 财务追踪管理</title>
+
+</head>
+
+<body>
+    <div class="log">
+        <div class="card shadow-dark">
+            <header class="top">
+                <h1 class="text-h1">财务追踪</h1>
+                <span class="text-p font-sm">登录您的账户</span>
+            </header>
+            <div class="bottom-sm" id="front">
+                <form action="html/home.html">
+                    <label>用户名</label>
+                    <input type="text" placeholder="输入用户名" required>
+                    <label>密码</label>
+                    <input type="password" placeholder="输入密码" required>
+                    <button class="form-button font-big bgcolor-blue" type="submit" id="Link">登录</button>
+                </form>
+                <p class="font-big" style="text-align: center;">还没有账号?
+                    <a href="#">立即注册</a>
+                    <button style="background-color: transparent;">重置测试账号 (test/123456) - 点击恢复默认账号</button>
+                </p>
+            </div>
+            <div class="bottom-lar" id="back">
+                <form action="html/home.html">
+                    <label>用户名</label>
+                    <input type="text" placeholder="新建用户名" required>
+                    <label>密码</label>
+                    <input type="password" placeholder="创建密码(至少6个字符)" minlength="6" required class="password2">
+                    <label>确认密码</label>
+                    <input type="password" placeholder="确认密码" minlength="6" required class="password2">
+                    <label>资产信息</label>
+                    <section class="form-section">
+                        <div class="text-addPart">
+                            <div class="form-section__title">
+                                <h4>资产</h4>
+                                <svg class="svg-sm">
+                                    <use xlink:href="icomoon/all.svg#bin2"></use>
+                                </svg>
+                            </div>
+                            <div class="form-section__content">
+                                <div>
+                                    <span>资产名称</span>
+                                    <input type="text" class="form-input__section" placeholder="例如：银行卡" required>
+                                </div>
+                                <div>
+                                    <span>资产类型</span>
+                                    <select class="form-input__section" id="select" required>
+                                        <option value="wechat">微信</option>
+                                        <option value="alipay">支付宝</option>
+                                        <option value="bank">银行卡</option>
+                                        <option value="other">其他</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <span>初始余额(￥)</span>
+                                <input class="form-section__bottom" type="number" min="0.01" max="10000" step="0.01"
+                                    placeholder="0" value="0" required>
+                            </div>
+                        </div>
+                    </section>
+                    <button class="form-section__button font-big" type="button" id="add">+ 添加资产</button>
+                    <button class="form-button font-big bgcolor-blue" type="submit" id="log" disabled>注册</button>
+                </form>
+                <p class="font-big" style="text-align: center;">
+                    已有账号?
+                    <a href="html/home.html">立即登录</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const password2 = document.querySelectorAll(".password2")
+        const log = document.querySelector("#log")
+        log.disabled = !(password2[0].value === password2[1].value)
+
+        if (log.disabled) {
+            const box = document.createElement('div');
+            box.textContent = "密码错误";
+            box.style.cssText = `
+        position:fixed; bottom:2rem; left:50%; transform:translateX(-50%);
+        background:#f0f0f0; color:#374151; padding:1rem 1.6rem; border-radius:8px;
+        font-size:1.4rem; z-index:9999; transition:opacity .3s;`
+            document.body.appendChild(box);
+
+            setTimeout(() => {
+                box.style.opacity = '0'
+                setTimeout(() => box.remove(), 300)
+            }, 2500)
+        }
+
+        document.getElementById("Link").addEventListener('submit', () => {
+            sessionStorage.setItem('toast1', '成功登录！跳转中...');
+            location.href = this.href;
+        })
+
+        document.getElementById("log").addEventListener('submit', () => {
+            sessionStorage.setItem('toast1', '成功注册！跳转中...');
+            location.href = this.href;
+        })
+
+        const section = document.querySelector("section")
+        document.getElementById("add").addEventListener('click', () => {
+            section.innerHTML += `
+                <div class="text-addPart">
+                    <div class="form-section__title">
+                        <h4 class="font-med black">资产</h4>
+                        <svg class="svg-sm color-red" onclick="this.closest('.text-addPart').remove()">
+                            <use xlink:href="icomoon/all.svg#bin2"></use>
+                        </svg>
+                    </div>
+                    <div class="form-section__content">
+                        <div>
+                            <span class="font-tiny font-big black">资产名称</span>
+                            <input type="text" class="form-input__section" placeholder="例如：银行卡" required>
+                        </div>
+                        <div>
+                            <span class="font-tiny font-big black">资产类型</span>
+                            <select class="form-input__section" id="select" required>
+                                <option value="wechat">微信</option>
+                                <option value="alipay">支付宝</option>
+                                <option value="bank">银行卡</option>
+                                <option value="other">其他</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="font-tiny font-big black">初始余额(￥)</span>
+                        <input class="form-section__bottom" type="number" min="0.01" max="10000" step="0.01"
+                            placeholder="0" value="0" required>
+                    </div>
+                </div>
+            `
+        })
+    </script>
+
+    <script src="js/index.js"></script>
+
+</body>
+
+</html>

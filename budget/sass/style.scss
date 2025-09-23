@@ -1,0 +1,14 @@
+@import 'base';
+@import 'component';
+@import 'layout';
+
+
+@import 'form';
+@import 'nav';
+@import 'switch';
+
+
+//////////////////////
+// 相似的布局，只写一个类名 
+// 移动端，使用1vm或1vmin来写
+// 全局有的写一个，依靠js完成
